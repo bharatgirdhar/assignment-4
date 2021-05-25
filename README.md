@@ -62,7 +62,7 @@ Finally, we calculate the total loss using which we'll perform backpropagation.
 
 ### Backward Propagation
 
-During backpropagation, we first calculate the derivative of the total Error wrt all the weights using chain rule.
+During backpropagation, we first calculate the derivative of the total error with respect to all the weights using chain rule.
 
 The final equations are:
 
@@ -81,6 +81,12 @@ The final equations are:
 `∂E_Total/∂w2 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w5 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w7] * a_h1 * (1 - a_h1) * x2`
 
 `∂E_Total/∂w1 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w5 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w7] * a_h1 * (1 - a_h1) * x1`
+
+Once we the gradients, we update the weights using the following equation.
+
+`w_new = w_old - (LR * ∂E/∂w)`
+
+`LR` is the learning rate which is used to ensure the update step aren't too large. If the LR is too big, the network may not converge at all.
 
 ### Learning Rate Experiment
 
