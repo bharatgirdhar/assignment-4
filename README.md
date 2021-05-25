@@ -1,0 +1,111 @@
+# Assignment 4
+
+## Part 1
+
+The excel sheet contains an example to train a deep neural network in excel. There are 2 major parts in it -
+
+1. Forward Propagation
+2. Backward Propagation
+
+### Forward Propagation
+
+We have an input of dimenisonality 2 which is fed to the network. The inputs are denoted by `x1` and `x2`.
+
+The network consists of an input layers, a hidden layers, and an output layer. Each layer is followed by an activation function to introduce non-linearity into the network.
+
+- Input: `x1, x2`
+- output: `y1, y2`
+- Weights: `w1, w2, w3, w4, w5, w6, w7, w8`
+- Intermediate outputs: `h1, a_h1, o1, o2`
+- Final Output: `a_o1, a_o2`
+- MSE Loss: `E1, E2`
+
+Although the parameters are initialised randomly, for our exercise we choose the following values.
+
+| w1  | w2  |  w3  | w4  | w5  |  w6  | w7  |  w8  |
+| :-: | :-: | :--: | :-: | :-: | :--: | :-: | :--: |
+| 0.3 | 0.5 | -0.2 | 0.7 | 0.1 | -0.6 | 0.3 | -0.9 |
+
+The inputs `x1` and `x2` are used to calculate the neuron values of the hidden layer using the following equation.
+
+`h1 = (w1 * x1) + (w2 * x2)`
+
+`h2 = (w3 * x1) + (w4 * x2)`
+
+These outputs are then passed through a sigmoid function.
+
+`a_h1 = σ(h1) = 1/(1 + exp(-h1))`
+
+`a_h2 = σ(h2) = 1/(1 + exp(-h2))`
+
+Once we have the middle neurons, we then calculate the output neurons using the following equations.
+
+`o1 (w5 * a_h1) * (w6 * a_h2)`
+
+`o2 (w7 * a_h1) * (w8 * a_h2)`
+
+Activations of these outputs.
+
+`a_o1 = σ(o1) = 1/(1 + exp(-o1))`
+
+`a_o2 = σ(o2) = 1/(1 + exp(-o2))`
+
+Once we have the output from the network, we calculate the Mean Squared Error loss using our actual outputs.
+
+`E1 = 0.5 * (y1 - a_o1)²`
+
+`E2 = 0.5 * (y2 - a_o2)²`
+
+Finally, we calculate the total loss using which we'll perform backpropagation.
+
+`E_Total E1 + E2`
+
+### Backward Propagation
+
+During backpropagation, we first calculate the derivative of the total Error wrt all the weights using chain rule.
+
+The final equations are:
+
+`∂E_Total/∂w8 = (a_o2 - y2) * a_o2 * (1 - a_o2) * a_h2`
+
+`∂E_Total/∂w7 = (a_o2 - y2) * a_o2 * (1 - a_o2) * a_h1`
+
+`∂E_Total/∂w6 = (a_o1 - y1) * a_o1 * (1 - a_o1) * a_h2`
+
+`∂E_Total/∂w5 = (a_o1 - y1) * a_o1 * (1 - a_o1) * a_h1`
+
+`∂E_Total/∂w4 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w6 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w8] * a_h2 * (1 - a_h2) * x2`
+
+`∂E_Total/∂w3 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w6 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w8] * a_h2 * (1 - a_h2) * x1`
+
+`∂E_Total/∂w2 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w5 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w7] * a_h1 * (1 - a_h1) * x2`
+
+`∂E_Total/∂w1 = [(a_o1 - y1) * a_o1 * (1 - a_o1) * w5 + (a_o2 - y2) * a_o2 * (1 - a_o2) * w7] * a_h1 * (1 - a_h1) * x1`
+
+### Learning Rate Experiment
+
+Increasing the learning leads to faster convergence in 100 epochs. The total error reduces quickly for a higher learning rate.
+
+- LR = 0.1
+  ![LearningRate=0.1](./part1/lr_0_1.png)
+
+- LR = 0.2
+  ![LearningRate=0.1](./part1/lr_0_2.png)
+
+- LR = 0.5
+  ![LearningRate=0.1](./part1/lr_0_5.png)
+
+- LR = 0.8
+  ![LearningRate=0.1](./part1/lr_0_8.png)
+
+- LR = 1.0
+  ![LearningRate=0.1](./part1/lr_1_0.png)
+
+- LR = 2.0
+  ![LearningRate=0.1](./part1/lr_2_0.png)
+
+### Screenshot
+
+The excel sheet is present in `./part1/`. Here's a screenshot of the file.
+
+![backprop](./part1/backprop.png)
