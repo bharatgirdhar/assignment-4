@@ -141,6 +141,10 @@ Estimated Total Size (MB): 1.34
 
 The network architecture is as follows -
 
+The BaseBlock consists of 2 convolutional layers where the input is added to the final output. This network consists of 6 such BaseBlocks. First two BaseBlocks use 8 channels while the final two BaseBlocks uses 16.
+
+Finally, the output of this cnn part, with an RF of 60, goes throught GAP which makes the heigh and width equal to 1. Finally, this tensor is squeezed and passed through a final linear layer.
+
 ```
 ----------------------------------------------------------------
         Layer (type)               Output Shape         Param #
